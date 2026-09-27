@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Himanshu Phogat</title>
+  <meta name="description" content="Himanshu Phogat — Staff Software Engineer @ Twilio. Architecting high-throughput distributed systems and resilient data platforms.">
+  <meta name="author" content="Himanshu Phogat">
+  <meta name="theme-color" content="#f8fafc" id="meta-theme-color">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2308090d'/%3E%3Crect width='92' height='92' x='4' y='4' rx='18' fill='%230e1017' stroke='%23312e81' stroke-width='2'/%3E%3Ctext x='50%25' y='55%25' font-family='system-ui, -apple-system, sans-serif' font-weight='600' font-size='38' fill='%23818cf8' text-anchor='middle' dominant-baseline='central'%3EHP%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* -------------------------------------------------------------
+       Unified Theme Color Family: Refined Electric Indigo & Slate
+       ------------------------------------------------------------- */
+    :root {
+      /* Base & Surfaces */
+      --bg: #08090d;
+      --bg-radial: radial-gradient(circle at 50% 25%, rgba(99, 102, 241, 0.14) 0%, rgba(79, 70, 229, 0.04) 50%, transparent 80%);
+      --grid-line: rgba(255, 255, 255, 0.038);
+      --card-bg: rgba(14, 16, 23, 0.82);
+      --card-border: rgba(99, 102, 241, 0.14);
+      --card-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(99, 102, 241, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+
+      /* Typography */
+      --fg: #e2e8f0;
+      --fg-title: #ffffff;
+      --muted: #94a3b8;
+      --subtle: #64748b;
+
+      /* Unified Accent Family */
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-bright: #a5b4fc;
+      --accent-glow: rgba(99, 102, 241, 0.25);
+      --accent-bg: rgba(99, 102, 241, 0.08);
+      --accent-border: rgba(99, 102, 241, 0.35);
+
+      /* Ambient Cursor Glow */
+      --cursor-glow: rgba(99, 102, 241, 0.18);
+
+      /* Distributed Network Nodes */
+      --node-color: rgba(148, 163, 184, 0.35);
+      --node-line: rgba(99, 102, 241, 0.14);
+      --node-mouse-line: rgba(99, 102, 241, 0.3);
+      --node-pulse: #818cf8;
+
+      /* UI Controls & Badges */
+      --border: #1e2330;
+      --border-hover: #333d52;
+      --pill-bg: rgba(255, 255, 255, 0.035);
+      --pill-bg-hover: rgba(99, 102, 241, 0.1);
+
+      /* Status Beacon */
+      --dot: #10b981;
+      --dot-glow: rgba(16, 185, 129, 0.45);
+
+      /* Twilio Brand Badge */
+      --twilio: #f22f46;
+      --twilio-bg: rgba(242, 47, 70, 0.08);
+      --twilio-border: rgba(242, 47, 70, 0.22);
+      --twilio-text: #fca5a5;
+
+      /* Typography Stacks */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    }
+
+    [data-theme="light"] {
+      /* Base & Surfaces */
+      --bg: #f8fafc;
+      --bg-radial: radial-gradient(circle at 50% 25%, rgba(99, 102, 241, 0.12) 0%, rgba(79, 70, 229, 0.04) 50%, transparent 80%);
+      --grid-line: rgba(15, 23, 42, 0.065);
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --card-border: rgba(99, 102, 241, 0.12);
+      --card-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(99, 102, 241, 0.06), inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+
+      /* Typography */
+      --fg: #1e293b;
+      --fg-title: #0f172a;
+      --muted: #64748b;
+      --subtle: #94a3b8;
+
+      /* Unified Accent Family */
+      --accent: #4f46e5;
+      --accent-light: #6366f1;
+      --accent-bright: #4338ca;
+      --accent-glow: rgba(79, 70, 229, 0.22);
+      --accent-bg: rgba(99, 102, 241, 0.08);
+      --accent-border: rgba(99, 102, 241, 0.35);
+
+      /* Ambient Cursor Glow */
+      --cursor-glow: rgba(99, 102, 241, 0.26);
+
+      /* Distributed Network Nodes */
+      --node-color: rgba(100, 116, 139, 0.32);
+      --node-line: rgba(99, 102, 241, 0.15);
+      --node-mouse-line: rgba(79, 70, 229, 0.32);
+      --node-pulse: #4f46e5;
+
+      /* UI Controls & Badges */
+      --border: #e2e8f0;
+      --border-hover: #cbd5e1;
+      --pill-bg: rgba(15, 23, 42, 0.035);
+      --pill-bg-hover: rgba(99, 102, 241, 0.08);
+
+      /* Status Beacon */
+      --dot: #16a34a;
+      --dot-glow: rgba(22, 163, 74, 0.3);
+
+      /* Twilio Brand Badge */
+      --twilio: #e11d48;
+      --twilio-bg: rgba(225, 29, 72, 0.07);
+      --twilio-border: rgba(225, 29, 72, 0.24);
+      --twilio-text: #e11d48;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1.25rem, 4vw, 2.5rem);
+      background-image: var(--bg-radial);
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    /* Subtle architectural grid pattern */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-size: 32px 32px;
+      background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+                        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: 0;
+      transition: background-image 0.3s ease;
+    }
+
+    /* 1. Subtle Distributed Node / Mesh Pulse (Canvas) */
+    #nodes-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Ambient Cursor Spotlight */
+    .ambient-glow {
+      position: fixed;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--cursor-glow) 0%, transparent 68%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      z-index: 0;
+      transition: opacity 0.4s ease;
+      filter: blur(50px);
+    }
+
+    [data-theme="light"] .ambient-glow {
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.24) 0%, rgba(79, 70, 229, 0.12) 40%, transparent 70%);
+      mix-blend-mode: multiply;
+    }
+
+    /* Editorial Card Container */
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 580px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: clamp(2rem, 5vw, 3rem);
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(24px);
+      transform-style: preserve-3d;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+
+    /* Card Top Bar: Presence Beacon + Theme Switcher */
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2.25rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--pill-bg);
+      border: 1px solid var(--border);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      user-select: none;
+    }
+
+    .status-dot {
+      width: 6.5px;
+      height: 6.5px;
+      border-radius: 50%;
+      background-color: var(--dot);
+      box-shadow: 0 0 8px var(--dot-glow);
+      animation: pulse 2.5s infinite ease-in-out;
+    }
+
+    .status-sep {
+      opacity: 0.35;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+
+    /* 2. Animated Theme Switcher (Morphing Sun & Moon) */
+    .theme-btn {
+      background: var(--pill-bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .theme-btn:hover {
+      color: var(--accent-light);
+      border-color: var(--accent-border);
+      background: var(--accent-bg);
+      transform: translateY(-1.5px) scale(1.05);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .theme-btn:active {
+      transform: translateY(0) scale(0.96);
+    }
+
+    .sun-moon-svg {
+      width: 18px;
+      height: 18px;
+      overflow: visible;
+    }
+
+    .sun-core {
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), r 0.45s cubic-bezier(0.16, 1, 0.3, 1), fill 0.3s ease;
+      transform-origin: center;
+    }
+
+    .sun-rays {
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, stroke 0.3s ease;
+      transform-origin: center;
+    }
+
+    .moon-mask-cutter {
+      transition: cx 0.45s cubic-bezier(0.16, 1, 0.3, 1), cy 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Dark Mode: Radiant Sun */
+    [data-theme="dark"] .sun-core {
+      r: 4.8px;
+      fill: var(--accent-light);
+    }
+    [data-theme="dark"] .moon-mask-cutter {
+      cx: 28px;
+      cy: 2px;
+    }
+    [data-theme="dark"] .sun-rays {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+      stroke: var(--accent-light);
+    }
+
+    /* Light Mode: Crescent Moon */
+    [data-theme="light"] .sun-core {
+      r: 7.8px;
+      transform: rotate(-20deg);
+      fill: var(--accent);
+    }
+    [data-theme="light"] .moon-mask-cutter {
+      cx: 17.5px;
+      cy: 7.5px;
+    }
+    [data-theme="light"] .sun-rays {
+      opacity: 0;
+      transform: rotate(95deg) scale(0.15);
+    }
+
+    /* Main Content */
+    .card-main {
+      margin-bottom: 2.25rem;
+    }
+
+    .name {
+      font-size: clamp(2.2rem, 5.2vw, 2.95rem);
+      font-weight: 650;
+      letter-spacing: -0.04em;
+      line-height: 1.12;
+      margin-bottom: 0.85rem;
+      background: linear-gradient(180deg, var(--fg-title) 20%, var(--muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .role-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem 0.55rem;
+      font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+      color: var(--fg);
+      font-weight: 450;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.95rem;
+    }
+
+    .company-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      background: var(--twilio-bg);
+      border: 1px solid var(--twilio-border);
+      color: var(--twilio-text);
+      letter-spacing: 0;
+      transition: all 0.2s ease;
+    }
+
+    .company-chip:hover {
+      background: rgba(242, 47, 70, 0.14);
+      border-color: rgba(242, 47, 70, 0.35);
+      transform: translateY(-0.5px);
+    }
+
+    .twilio-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--twilio);
+      box-shadow: 0 0 6px var(--twilio);
+    }
+
+    .description {
+      font-size: 0.96rem;
+      line-height: 1.65;
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      max-width: 500px;
+    }
+
+    .description strong {
+      color: var(--fg);
+      font-weight: 500;
+    }
+
+    /* -------------------------------------------------------------
+       3. Tactile Icon Interactions on Hover (Unified Color Family)
+       ------------------------------------------------------------- */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      padding-top: 1.15rem;
+    }
+
+    /* Shared cohesive pill style */
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.6rem 1.05rem;
+      border-radius: 12px;
+      background: var(--pill-bg);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    /* Unified hover state for all 3 pills */
+    .pill-link:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-border);
+      background: var(--accent-bg);
+      color: var(--accent-bright);
+      box-shadow: 0 4px 20px -2px var(--accent-glow);
+    }
+
+    [data-theme="light"] .pill-link:hover {
+      border-color: var(--accent-border);
+      background: var(--accent-bg);
+      color: var(--accent);
+      box-shadow: 0 4px 18px -2px var(--accent-glow);
+    }
+
+    .pill-link:active {
+      transform: translateY(0);
+    }
+
+    .pill-icon {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+      opacity: 0.85;
+      flex-shrink: 0;
+      transition: opacity 0.2s ease, transform 0.25s ease;
+    }
+
+    .pill-link:hover .pill-icon {
+      opacity: 1;
+    }
+
+    /* Tactile 1: Email Envelope Flap opens + sliding note emerges */
+    .env-svg {
+      width: 15px;
+      height: 15px;
+      overflow: visible;
+      flex-shrink: 0;
+      opacity: 0.85;
+      transition: opacity 0.2s ease;
+    }
+
+    .pill-email:hover .env-svg {
+      opacity: 1;
+    }
+
+    .env-flap {
+      transform-origin: top;
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .env-letter {
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+      transform: translateY(0);
+      opacity: 0;
+    }
+
+    .pill-email:hover .env-flap {
+      transform: scaleY(-1);
+    }
+
+    .pill-email:hover .env-letter {
+      transform: translateY(-3.5px);
+      opacity: 1;
+    }
+
+    /* Tactile 2: GitHub Octocat Tail wag / double-twitch */
+    .octocat-svg {
+      width: 15px;
+      height: 15px;
+      overflow: visible;
+      flex-shrink: 0;
+      opacity: 0.85;
+      transition: opacity 0.2s ease;
+    }
+
+    .pill-github:hover .octocat-svg {
+      opacity: 1;
+    }
+
+    .octo-tail {
+      transform-origin: 18px 18px;
+    }
+
+    .pill-github:hover .octo-tail {
+      animation: tailTwitch 0.55s ease-in-out infinite alternate;
+    }
+
+    @keyframes tailTwitch {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(-14deg); }
+      100% { transform: rotate(18deg); }
+    }
+
+    /* Tactile 3: LinkedIn Arrow with elastic magnetic dart snap */
+    .pill-arrow {
+      width: 11px;
+      height: 11px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.55;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+    }
+
+    .pill-linkedin:hover .pill-arrow {
+      animation: arrowDart 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      opacity: 1;
+    }
+
+    @keyframes arrowDart {
+      0% { transform: translate(0, 0); }
+      40% { transform: translate(3.5px, -3.5px); }
+      70% { transform: translate(1px, -1px); }
+      100% { transform: translate(2.5px, -2.5px); }
+    }
+
+    /* Generic pill arrow for other links */
+    .pill-link:not(.pill-linkedin):hover .pill-arrow {
+      opacity: 1;
+      transform: translate(2px, -2px);
+    }
+
+    /* Footer Meta Row */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 1.35rem;
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--subtle);
+      letter-spacing: 0.04em;
+    }
+
+    /* Accessibility focus rings */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent-light);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 1.75rem 1.4rem;
+        border-radius: 22px;
+      }
+      .contact-links {
+        gap: 0.6rem;
+      }
+      .pill-link {
+        flex: 1 1 calc(50% - 0.6rem);
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+
+  <!-- 1. Interactive Distributed Node / Mesh Pulse Canvas -->
+  <canvas id="nodes-canvas"></canvas>
+
+  <!-- Ambient Cursor Follower Spotlight -->
+  <div class="ambient-glow" id="ambient-glow" aria-hidden="true"></div>
+
+  <article class="card" id="card">
+    <!-- Top Row: Local Time Presence Beacon + Animated Theme Switcher -->
+    <header class="card-top">
+      <div class="status-badge" title="Local Time in Delhi, India">
+        <span class="status-dot"></span>
+        <span>DEL, IN</span>
+        <span class="status-sep">&bull;</span>
+        <span id="local-time">03:35 PM</span>
+      </div>
+
+      <!-- 2. Animated Theme Switcher (Morphing Sun & Moon) -->
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+        <svg class="sun-moon-svg" viewBox="0 0 24 24">
+          <mask id="moon-mask">
+            <rect x="0" y="0" width="100%" height="100%" fill="white" />
+            <circle class="moon-mask-cutter" cx="28" cy="2" r="7.5" fill="black" />
+          </mask>
+          <circle class="sun-core" cx="12" cy="12" r="4.8" mask="url(#moon-mask)" fill="currentColor" />
+          <g class="sun-rays" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="12" y1="1.5" x2="12" y2="3.5" />
+            <line x1="12" y1="20.5" x2="12" y2="22.5" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1.5" y1="12" x2="3.5" y2="12" />
+            <line x1="20.5" y1="12" x2="22.5" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </g>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="card-main">
+      <h1 class="name">Himanshu Phogat</h1>
+      <div class="role-row">
+        <span>Staff Software Engineer</span>
+        <span class="company-chip" title="Twilio">
+          <span class="twilio-dot"></span>
+          <span>Twilio</span>
+        </span>
+      </div>
+      <p class="description">
+        Architecting high-throughput <strong>distributed systems</strong> and resilient <strong>data platforms</strong>.
+      </p>
+    </main>
+
+    <!-- 3. Tactile Icon Interactions on Hover -->
+    <nav class="contact-links" aria-label="Contact Links">
+      <!-- Email: Envelope flap unzips & letter pops out -->
+      <a class="pill-link pill-email" href="mailto:him.phogat123@gmail.com" title="Email: him.phogat123@gmail.com">
+        <svg class="env-svg" viewBox="0 0 24 24">
+          <rect class="env-letter" x="5" y="4.5" width="14" height="7.5" rx="1.2" fill="currentColor" opacity="0.9" />
+          <path d="M3 8v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-9 6-9-6z" fill="currentColor" />
+          <polygon class="env-flap" points="3,8 12,14 21,8" fill="currentColor" />
+        </svg>
+        <span>Email</span>
+        <svg class="pill-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+
+      <!-- GitHub: Cat tail wag / twitch on hover -->
+      <a class="pill-link pill-github" href="https://github.com/himanshuPH" target="_blank" rel="noopener noreferrer" title="GitHub: himanshuPH">
+        <svg class="octocat-svg" viewBox="0 0 24 24">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          <path class="octo-tail" d="M19 19c-1 1-2 2-3 1.5s0-2 1-2 2 .5 2 .5z" fill="currentColor"/>
+        </svg>
+        <span>GitHub</span>
+        <svg class="pill-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+
+      <!-- LinkedIn: Outbound arrow with elastic dart snap -->
+      <a class="pill-link pill-linkedin" href="https://www.linkedin.com/in/hphogat" target="_blank" rel="noopener noreferrer" title="LinkedIn: hphogat">
+        <svg class="pill-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0 0-3.28 1.64 1.64 0 0 0 0 3.28m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg>
+        <span>LinkedIn</span>
+        <svg class="pill-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+    </nav>
+
+    <!-- Card Footer -->
+    <footer class="card-footer">
+      <span>&copy; 2026</span>
+    </footer>
+  </article>
+
+  <script>
+    (function() {
+      // 1. Theme Management
+      const savedTheme = localStorage.getItem('theme');
+      const initialTheme = savedTheme || 'light';
+
+      function applyTheme(theme) {
+        document.body.setAttribute('data-theme', theme);
+        const metaThemeColor = document.getElementById('meta-theme-color');
+        if (metaThemeColor) {
+          metaThemeColor.setAttribute('content', theme === 'light' ? '#f8fafc' : '#08090d');
+        }
+        localStorage.setItem('theme', theme);
+      }
+
+      applyTheme(initialTheme);
+
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          const current = document.body.getAttribute('data-theme');
+          applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+      }
+
+      // 2. Live Dynamic Local Time (Delhi, Asia/Kolkata)
+      function updateLocalTime() {
+        const timeEl = document.getElementById('local-time');
+        if (!timeEl) return;
+        try {
+          const now = new Date();
+          const formatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'Asia/Kolkata',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+          });
+          timeEl.textContent = formatter.format(now);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      updateLocalTime();
+      setInterval(updateLocalTime, 10000);
+
+      // 3. Interactive Cursor Spotlight & 3D Card Parallax
+      const glow = document.getElementById('ambient-glow');
+      const card = document.getElementById('card');
+      const canHover = window.matchMedia('(hover: hover)').matches;
+      let mouseX = -1000;
+      let mouseY = -1000;
+
+      if (canHover && glow) {
+        window.addEventListener('pointermove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          glow.style.left = mouseX + 'px';
+          glow.style.top = mouseY + 'px';
+          glow.style.opacity = '1';
+
+          if (card) {
+            const rect = card.getBoundingClientRect();
+            const cardCenterX = rect.left + rect.width / 2;
+            const cardCenterY = rect.top + rect.height / 2;
+            const normX = (e.clientX - cardCenterX) / (window.innerWidth / 2);
+            const normY = (e.clientY - cardCenterY) / (window.innerHeight / 2);
+            card.style.transform = `perspective(1000px) rotateY(${normX * 2.8}deg) rotateX(${-normY * 2.8}deg)`;
+          }
+        });
+
+        document.addEventListener('mouseleave', () => {
+          mouseX = -1000;
+          mouseY = -1000;
+          glow.style.opacity = '0';
+          if (card) {
+            card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+          }
+        });
+      }
+
+      // 4. Subtle Distributed Network Nodes Canvas (Option 1)
+      const canvas = document.getElementById('nodes-canvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        });
+
+        const nodeCount = Math.min(Math.floor((width * height) / 38000), 32);
+        const nodes = [];
+
+        for (let i = 0; i < nodeCount; i++) {
+          nodes.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.45,
+            vy: (Math.random() - 0.5) * 0.45,
+            radius: Math.random() * 1.5 + 1.2
+          });
+        }
+
+        // Animated traveling consensus packet between nodes
+        let packetProgress = 0;
+        let packetSource = 0;
+        let packetTarget = 1;
+
+        function animateNodes() {
+          ctx.clearRect(0, 0, width, height);
+          const isLight = document.body.getAttribute('data-theme') === 'light';
+          
+          // Unified color family for nodes
+          const nodeColor = isLight ? 'rgba(100, 116, 139, 0.32)' : 'rgba(148, 163, 184, 0.35)';
+          const lineColor = isLight ? 'rgba(99, 102, 241, 0.14)' : 'rgba(99, 102, 241, 0.15)';
+          const mouseLineColor = isLight ? 'rgba(79, 70, 229, 0.32)' : 'rgba(99, 102, 241, 0.32)';
+          const pulseColor = isLight ? 'rgba(79, 70, 229, 0.95)' : 'rgba(129, 140, 248, 0.95)';
+          const pulseGlow = isLight ? 'rgba(79, 70, 229, 0.5)' : 'rgba(99, 102, 241, 0.6)';
+
+          // Update and draw nodes
+          for (let i = 0; i < nodes.length; i++) {
+            const n = nodes[i];
+            n.x += n.vx;
+            n.y += n.vy;
+
+            if (n.x < 0 || n.x > width) n.vx *= -1;
+            if (n.y < 0 || n.y > height) n.vy *= -1;
+
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+            ctx.fillStyle = nodeColor;
+            ctx.fill();
+
+            // Connect nearby nodes
+            for (let j = i + 1; j < nodes.length; j++) {
+              const n2 = nodes[j];
+              const dx = n.x - n2.x;
+              const dy = n.y - n2.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+
+              if (dist < 130) {
+                ctx.beginPath();
+                ctx.moveTo(n.x, n.y);
+                ctx.lineTo(n2.x, n2.y);
+                ctx.strokeStyle = lineColor;
+                ctx.lineWidth = 1 - dist / 130;
+                ctx.stroke();
+              }
+            }
+
+            // Connect to mouse if hovering nearby
+            if (mouseX > 0 && mouseY > 0) {
+              const mdx = n.x - mouseX;
+              const mdy = n.y - mouseY;
+              const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+              if (mdist < 140) {
+                ctx.beginPath();
+                ctx.moveTo(n.x, n.y);
+                ctx.lineTo(mouseX, mouseY);
+                ctx.strokeStyle = mouseLineColor;
+                ctx.lineWidth = 1.2 * (1 - mdist / 140);
+                ctx.stroke();
+              }
+            }
+          }
+
+          // Animate a travelling consensus packet
+          if (nodes.length > 2) {
+            packetProgress += 0.015;
+            if (packetProgress >= 1) {
+              packetProgress = 0;
+              packetSource = Math.floor(Math.random() * nodes.length);
+              packetTarget = (packetSource + 1 + Math.floor(Math.random() * (nodes.length - 1))) % nodes.length;
+            }
+
+            const p1 = nodes[packetSource];
+            const p2 = nodes[packetTarget];
+            const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+            if (dist < 200) {
+              const px = p1.x + (p2.x - p1.x) * packetProgress;
+              const py = p1.y + (p2.y - p1.y) * packetProgress;
+              ctx.beginPath();
+              ctx.arc(px, py, 2.2, 0, Math.PI * 2);
+              ctx.fillStyle = pulseColor;
+              ctx.shadowColor = pulseGlow;
+              ctx.shadowBlur = 8;
+              ctx.fill();
+              ctx.shadowBlur = 0;
+            }
+          }
+
+          requestAnimationFrame(animateNodes);
+        }
+
+        requestAnimationFrame(animateNodes);
+      }
+    })();
+  </script>
+</body>
+</html>
